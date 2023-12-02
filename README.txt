@@ -1,7 +1,15 @@
-# ConcertBuddyUI
+MDB 5 React
 
-Resources:
+Version: FREE 7.0.0
 
-https://mdbootstrap.com/learn/mdb-foundations/basics/introduction/
+Documentation:
+https://mdbootstrap.com/docs/b5/react/
 
-https://mdbootstrap.com/docs/react/extended/profiles/
+Installation:
+https://mdbootstrap.com/docs/b5/react/getting-started/installation/
+
+CLI & hosting:
+https://mdbootstrap.com/docs/standard/cli/
+
+Support:
+https://mdbootstrap.com/support/cat/react/
