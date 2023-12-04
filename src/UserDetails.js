@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MDBCol,
   MDBContainer,
@@ -18,6 +18,22 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function UserDetails() {
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/b334e65e-c100-4f4c-834a-479d800f6089');
+        const data = await response.json();
+        setUser(data); // Assuming data is an array of concert objects
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
@@ -89,7 +105,7 @@ export default function UserDetails() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">{user.name}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
