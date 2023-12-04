@@ -17,7 +17,7 @@ import {
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
 
-export default function ProfilePage() {
+export default function UserDetails() {
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">

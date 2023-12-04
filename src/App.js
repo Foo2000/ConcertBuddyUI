@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
-import ProfilePage from './ProfilePage'
+import UserDetails from './UserDetails'
+import ConcertList from './ConcertList'
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         </div>
       </div>
     </MDBContainer>*/
-    <ProfilePage/>
+    <ConcertList/>
   );
 }
 
