@@ -2,8 +2,15 @@ import React from 'react';
 import { MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
 import UserDetails from './UserDetails'
 import ConcertList from './ConcertList'
+import { GoogleLogin } from '@react-oauth/google';
 
 function App() {
+  const responseMessage = (response) => {
+      console.log(response);
+  };
+  const errorMessage = (error) => {
+      console.log(error);
+  };
   return (
     /*<MDBContainer fluid>
       <div
@@ -31,7 +38,13 @@ function App() {
         </div>
       </div>
     </MDBContainer>*/
-    <ConcertList/>
+    //<ConcertList/>
+    <div>
+        <h2>React Google Login</h2>
+        <br />
+        <br />
+        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+    </div>
   );
 }
 
