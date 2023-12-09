@@ -68,7 +68,7 @@ function App() {
     </MDBContainer>*/
     //<ConcertList/>
     <div>
-            <h2>React Google Login</h2>
+            <h2>ConcertBuddy Google SSO Login</h2>
             <br />
             <br />
             {profile ? (
@@ -82,7 +82,7 @@ function App() {
                     <button onClick={logOut}>Log out</button>
                 </div>
             ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀 </button>
+                <button onClick={() => login()}>Sign in with Google SSO </button>
             )}
         </div>
   );
