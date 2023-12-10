@@ -18,7 +18,7 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 
-export default function ConcertDetails() {
+export default function ConcertDetails({concertId, userId}) {
   const [concert, setConcert] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [matchStatus, setMatchStatus] = useState("");
@@ -27,7 +27,7 @@ export default function ConcertDetails() {
     const fetchData = async () => {
       try {
         const concertResponse = await fetch(
-          "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/140ec861-33c0-48f8-bf8b-79e0e366599e"
+          "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/" + concertId
         );
         const concertData = await concertResponse.json();
         setConcert(concertData); // Assuming concertData is a Concert object
@@ -44,7 +44,7 @@ export default function ConcertDetails() {
   const handleMatch = async () => {
     try {
       const url =
-        "http://localhost:8090/api/v1/finder/2f549ace-7ce8-466e-b9c4-b973f2bb69bc/140ec861-33c0-48f8-bf8b-79e0e366599e";
+        "http://localhost:8090/api/v1/finder/" + userId + "/" + concertId;
 
       const res = await axios.post(url, null, null);
       if (JSON.stringify(res.status) == "200") {
