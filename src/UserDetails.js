@@ -16,11 +16,14 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
+import axios from 'axios';
 
 export default function UserDetails() {
   const [user, setUser] = useState(null);
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [spotifytoken, setSpotifyToken] = useState('');
+  const [spotifySyncStatus, setSpotifySyncStatus] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +55,27 @@ export default function UserDetails() {
   }
 
   const shuffledSongs = shuffleArray(songs)
+
+  const handleSpotifySync = async () => {
+    try {
+      const url = 'http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/2f549ace-7ce8-466e-b9c4-b973f2bb69bc/SpotifySync';
+      const queryParams = { SpotifyAccountToken: spotifytoken };
+      const config = {
+        params: queryParams,
+        // Add other headers if needed, like authorization headers
+      };
+
+      const res = await axios.put(url, null, config);
+      if (JSON.stringify(res.status) == '200') {
+        setSpotifySyncStatus("Success");
+      } else {
+        setSpotifySyncStatus("Fail");
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors here
+    }
+  };
 
   return (
     <div>
@@ -92,24 +116,23 @@ export default function UserDetails() {
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText>https://mdbootstrap.com</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                  <i class="fab fa-spotify fa-3x"/>
+                    <div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter Spotify token"
+                      value={spotifytoken}
+                      onChange={(e) => setSpotifytoken(e.target.value)}
+                    />
+                    <button className="btn btn-primary" onClick={handleSpotifySync}>SpotifySync</button>
+                    {spotifySyncStatus && (
+                      <div className="mt-3">
+                        <strong>SpotifySync Status:</strong>
+                        <pre>{spotifySyncStatus}</pre>
+                      </div>
+                    )}
+                    </div>
                   </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCardBody>
