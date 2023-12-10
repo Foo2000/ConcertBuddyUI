@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
 import UserDetails from './UserDetails'
+import UserList from './UserList'
 import ConcertDetails from './ConcertDetails'
 import ConcertList from './ConcertList'
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
@@ -85,6 +86,7 @@ function App() {
             ) : (
                 <button onClick={() => login()}>Sign in with Google SSO </button>
             )}
+            <UserList/>
             <UserDetails/>
             <ConcertList/>
             <ConcertDetails/>
