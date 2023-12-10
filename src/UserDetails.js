@@ -93,7 +93,7 @@ export default function UserDetails() {
               <MDBBreadcrumbItem>
                 <a href="#">User</a>
               </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>User Details</MDBBreadcrumbItem>
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>

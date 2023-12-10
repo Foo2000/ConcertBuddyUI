@@ -31,10 +31,7 @@ const ConcertList = () => {
         <MDBListGroupItem key={index}>
           {/* Render concert details here */}
           <h5>{concert.name}</h5>
-          <p>UUID: {concert.id}</p>
           <p>Artist: {concert.performingArtist}</p>
-          <p>Date: {concert.dateTime}</p>
-          <p>Venue: {concert.venue}</p>
           {/* Add more details as needed */}
         </MDBListGroupItem>
       ))}
