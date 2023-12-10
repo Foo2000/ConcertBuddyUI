@@ -86,9 +86,9 @@ function App() {
       ) : (
         <button onClick={() => login()}>Sign in with Google SSO </button>
       )}
-      <UserList />
+      <UserList userIds={["2f549ace-7ce8-466e-b9c4-b973f2bb69bc", "d88ffc06-8905-4c8a-b8f0-2b7aa3f7396c", "0e21d65c-203a-4ba8-88f6-06cac7a0a2ca"]}/>
       <UserDetails userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"}/>
-      <ConcertList />
+      <ConcertList page={10} size={5}/>
       <ConcertDetails concertId={"140ec861-33c0-48f8-bf8b-79e0e366599e"} userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"}/>
     </div>
   );

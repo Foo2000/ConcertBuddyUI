@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 
-const ConcertList = () => {
+const ConcertList = ({page, size}) => {
   const [concerts, setConcerts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -9,7 +9,7 @@ const ConcertList = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts?page=0&size=5"
+          "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts?page=" + page + "&size=" + size
         );
         const data = await response.json();
         setConcerts(data); // Assuming data is an array of concert objects

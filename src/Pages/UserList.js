@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 
-const UserList = () => {
+const UserList = ({ userIds }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users"
-        );
-        const data = await response.json();
-        setUsers(data); // Assuming data is an array of user objects
+        const promises = userIds.map(async (userId) => {
+          const response = await fetch(
+            `http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/${userId}`
+          );
+          const data = await response.json();
+          return data;
+        });
+
+        const userData = await Promise.all(promises);
+        setUsers(userData);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
