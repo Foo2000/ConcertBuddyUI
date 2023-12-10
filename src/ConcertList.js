@@ -3,6 +3,7 @@ import { MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 
 const ConcertList = () => {
   const [concerts, setConcerts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -10,8 +11,10 @@ const ConcertList = () => {
         const response = await fetch('https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts?page=0&size=5');
         const data = await response.json();
         setConcerts(data); // Assuming data is an array of concert objects
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -19,6 +22,10 @@ const ConcertList = () => {
   }, []);
 
   return (
+    <div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
     <MDBListGroup>
       {concerts.map((concert, index) => (
         <MDBListGroupItem key={index}>
@@ -32,6 +39,8 @@ const ConcertList = () => {
         </MDBListGroupItem>
       ))}
     </MDBListGroup>
+    )}
+    </div>
   );
 };
 

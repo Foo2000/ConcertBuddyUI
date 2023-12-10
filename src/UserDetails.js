@@ -19,15 +19,18 @@ import {
 
 export default function UserDetails() {
   const [user, setUser] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/b334e65e-c100-4f4c-834a-479d800f6089');
         const data = await response.json();
-        setUser(data); // Assuming data is an array of concert objects
+        setUser(data); // Assuming data is a User object
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -35,6 +38,10 @@ export default function UserDetails() {
   }, []);
 
   return (
+    <div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
         <MDBRow>
@@ -216,5 +223,7 @@ export default function UserDetails() {
         </MDBRow>
       </MDBContainer>
     </section>
+    )}
+    </div>
   );
 }
