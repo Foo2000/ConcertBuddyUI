@@ -24,7 +24,7 @@ export default function UserDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/b334e65e-c100-4f4c-834a-479d800f6089');
+        const response = await fetch('http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/2f549ace-7ce8-466e-b9c4-b973f2bb69bc');
         const data = await response.json();
         setUser(data); // Assuming data is a User object
         setIsLoading(false);
