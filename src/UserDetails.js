@@ -18,15 +18,21 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function UserDetails() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(null);
+  const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/2f549ace-7ce8-466e-b9c4-b973f2bb69bc');
-        const data = await response.json();
-        setUser(data); // Assuming data is a User object
+        const userResponse = await fetch('http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/2f549ace-7ce8-466e-b9c4-b973f2bb69bc');
+        const userData = await userResponse.json();
+        setUser(userData); // Assuming userData is a User object
+
+        const songsResponseResponse = await fetch('http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/2f549ace-7ce8-466e-b9c4-b973f2bb69bc/songs');
+        const songsResponseData = await songsResponseResponse.json();
+        setSongs(songsResponseData._embedded.songList); // Assuming songsResponseData is a Songs Response object
+
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -36,6 +42,16 @@ export default function UserDetails() {
 
     fetchData();
   }, []);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements at i and j
+    }
+    return array;
+  }
+
+  const shuffledSongs = shuffleArray(songs)
 
   return (
     <div>
@@ -68,12 +84,7 @@ export default function UserDetails() {
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
-                </div>
+                <p className="text-muted mb-1">ConcertBuddy User</p>
               </MDBCardBody>
             </MDBCard>
 
@@ -109,7 +120,7 @@ export default function UserDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
+                    <MDBCardText>Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">{user.name}</MDBCardText>
@@ -121,34 +132,16 @@ export default function UserDetails() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">{user.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Phone</MDBCardText>
+                    <MDBCardText>Age</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted">{user.age}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -158,31 +151,23 @@ export default function UserDetails() {
               <MDBCol md="6">
                 <MDBCard className="mb-4 mb-md-0">
                   <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Top Songs</span></MDBCardText>
 
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    {shuffledSongs.length > 5 ? (
+                      // Display the first 5 elements if there are more than 5 songs, else display all
+                      <>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[0].name}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[1].name}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[2].name}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[3].name}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[4].name}</MDBCardText>
+                      </>
+                    ) : (
+                      // Display all songs if there are 5 or fewer
+                      shuffledSongs.map((song, index) => (
+                        <MDBCardText key={index} className="mb-1" style={{ fontSize: '.77rem' }}>{song.name}</MDBCardText>
+                      ))
+                    )}
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
@@ -190,31 +175,23 @@ export default function UserDetails() {
               <MDBCol md="6">
                 <MDBCard className="mb-4 mb-md-0">
                   <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Top Artists</span></MDBCardText>
 
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    {shuffledSongs.length > 5 ? (
+                      // Display the first 5 elements if there are more than 5 songs, else display all
+                      <>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[0].artist}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[1].artist}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[2].artist}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[3].artist}</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{shuffledSongs[4].artist}</MDBCardText>
+                      </>
+                    ) : (
+                      // Display all songs if there are 5 or fewer
+                      shuffledSongs.map((song, index) => (
+                        <MDBCardText key={index} className="mb-1" style={{ fontSize: '.77rem' }}>{song.name}</MDBCardText>
+                      ))
+                    )}
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
