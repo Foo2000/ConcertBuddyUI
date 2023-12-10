@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { MDBBtn, MDBContainer } from "mdb-react-ui-kit";
-import UserDetails from "./UserDetails";
-import UserList from "./UserList";
-import ConcertDetails from "./ConcertDetails";
-import ConcertList from "./ConcertList";
+import UserDetails from "./Pages/UserDetails";
+import UserList from "./Pages/UserList";
+import ConcertDetails from "./Pages/ConcertDetails";
+import ConcertList from "./Pages/ConcertList";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
