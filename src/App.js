@@ -4,6 +4,7 @@ import { MDBBtn, MDBContainer } from "mdb-react-ui-kit";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
+import Login from "./pages/Login";
 import UserDetails from "./pages/UserDetails";
 import UserList from "./pages/UserList";
 import ConcertDetails from "./pages/ConcertDetails";
@@ -13,7 +14,7 @@ import axios from "axios";
 
 function App() {
   const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
@@ -130,6 +131,7 @@ function App() {
               />
             }
           />
+          <Route path="login" element={<Login />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
