@@ -25,8 +25,8 @@ const Home = () => {
   return (
     <div style={styles}>
       <h1>ConcertBuddy</h1>
-      <Link to="/login" style={buttonStyle}>
-        <button style={buttonStyle}>Login</button>
+      <Link to="/login">
+        <button className="btn btn-primary">Login</button>
       </Link>
     </div>
   );
