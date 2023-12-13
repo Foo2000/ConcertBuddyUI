@@ -131,7 +131,7 @@ function App() {
               />
             }
           />
-          <Route path="login" element={<Login />} />
+          <Route path="login" element={<Login profile={profile} login={login} logOut={logOut}/>} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

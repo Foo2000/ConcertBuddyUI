@@ -107,13 +107,23 @@ export default function UserDetails({ userId }) {
               <MDBCol lg="4">
                 <MDBCard className="mb-4">
                   <MDBCardBody className="text-center">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                      alt="avatar"
-                      className="rounded-circle"
-                      style={{ width: "150px" }}
-                      fluid
-                    />
+                    {user.profilePictureUrl ? (
+                      <MDBCardImage
+                        src={user.profilePictureUrl}
+                        alt="avatar"
+                        className="rounded-circle"
+                        style={{ width: "150px" }}
+                        fluid
+                      />
+                    ) : (
+                      <MDBCardImage
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                        alt="avatar"
+                        className="rounded-circle"
+                        style={{ width: "150px" }}
+                        fluid
+                      />
+                    )}
                     <p className="text-muted mb-1">ConcertBuddy User</p>
                   </MDBCardBody>
                 </MDBCard>

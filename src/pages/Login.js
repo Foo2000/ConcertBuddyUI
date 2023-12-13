@@ -1,41 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function Login() {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState(null);
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
-  });
-
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
-
-  // log out function to log the user out of google and set the profile array to null
-  const logOut = () => {
-    googleLogout();
-    setProfile(null);
-  };
-
+function Login({ profile, login, logOut }) {
   return (
     <div>
       <h2>ConcertBuddy Google SSO Login</h2>
@@ -43,10 +11,12 @@ function Login() {
       <br />
       {profile ? (
         <div>
-          <img src={profile.picture} alt="user image" />
-          <h3>User Logged in</h3>
-          <p>Name: {profile.name}</p>
-          <p>Email Address: {profile.email}</p>
+          <h3>{profile.name} Logged in</h3>
+          <br />
+          <br />
+          <Link to="/userDetails">
+            <button>Profile</button>
+          </Link>
           <br />
           <br />
           <button onClick={logOut}>Log out</button>
