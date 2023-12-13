@@ -13,37 +13,37 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState(null);
+  const [googleSSOUser, setGoogleSSOUser] = useState([]);
+  const [googleSSOProfile, setGoogleSSOProfile] = useState(null);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) => setGoogleSSOUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
 
   useEffect(() => {
-    if (user) {
+    if (googleSSOUser) {
       axios
         .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleSSOUser.access_token}`,
           {
             headers: {
-              Authorization: `Bearer ${user.access_token}`,
+              Authorization: `Bearer ${googleSSOUser.access_token}`,
               Accept: "application/json",
             },
           }
         )
         .then((res) => {
-          setProfile(res.data);
+          setGoogleSSOProfile(res.data);
         })
         .catch((err) => console.log(err));
     }
-  }, [user]);
+  }, [googleSSOUser]);
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
     googleLogout();
-    setProfile(null);
+    setGoogleSSOProfile(null);
   };
 
   return (
@@ -131,7 +131,7 @@ function App() {
               />
             }
           />
-          <Route path="login" element={<Login profile={profile} login={login} logOut={logOut}/>} />
+          <Route path="login" element={<Login googleSSOProfile={googleSSOProfile} login={login} logOut={logOut}/>} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

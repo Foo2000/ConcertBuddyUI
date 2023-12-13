@@ -3,15 +3,15 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function Login({ profile, login, logOut }) {
+function Login({ googleSSOProfile, login, logOut }) {
   return (
     <div>
       <h2>ConcertBuddy Google SSO Login</h2>
       <br />
       <br />
-      {profile ? (
+      {googleSSOProfile ? (
         <div>
-          <h3>{profile.name} Logged in</h3>
+          <h3>{googleSSOProfile.name} Logged in</h3>
           <br />
           <br />
           <Link to="/userDetails">
