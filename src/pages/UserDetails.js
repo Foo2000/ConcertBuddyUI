@@ -18,24 +18,25 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 
-export default function UserDetails({userId}) {
+export default function UserDetails({ userId }) {
   const [user, setUser] = useState(null);
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [spotifytoken, setSpotifyToken] = useState("");
   const [spotifySyncStatus, setSpotifySyncStatus] = useState("");
 
+  const userUrl =
+    "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userResponse = await fetch(
-          "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/" + userId
-        );
+        const userResponse = await fetch(`${userUrl}/api/v1/users/${userId}`);
         const userData = await userResponse.json();
         setUser(userData); // Assuming userData is a User object
 
         const songsResponseResponse = await fetch(
-          "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/" + userId + "/songs"
+          `${userUrl}/api/v1/users/${userId}/songs`
         );
         const songsResponseData = await songsResponseResponse.json();
         setSongs(songsResponseData._embedded.songList); // Assuming songsResponseData is a Songs Response object
@@ -62,8 +63,7 @@ export default function UserDetails({userId}) {
 
   const handleSpotifySync = async () => {
     try {
-      const url =
-        "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/" + userId + "/SpotifySync";
+      const url = `${userUrl}/api/v1/users/${userId}/SpotifySync`;
       const queryParams = { SpotifyAccountToken: spotifytoken };
       const config = {
         params: queryParams,

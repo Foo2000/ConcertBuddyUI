@@ -5,13 +5,14 @@ const UserList = ({ userIds }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const userUrl =
+    "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const promises = userIds.map(async (userId) => {
-          const response = await fetch(
-            `http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users/${userId}`
-          );
+          const response = await fetch(`${userUrl}/api/v1/users/${userId}`);
           const data = await response.json();
           return data;
         });
