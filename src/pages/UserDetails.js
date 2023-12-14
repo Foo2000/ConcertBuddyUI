@@ -28,26 +28,26 @@ export default function UserDetails({ userId }) {
   const userUrl =
     "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const userResponse = await fetch(`${userUrl}/api/v1/users/${userId}`);
         const userData = await userResponse.json();
         setUser(userData); // Assuming userData is a User object
-
+  
         const songsResponseResponse = await fetch(
           `${userUrl}/api/v1/users/${userId}/songs`
         );
         const songsResponseData = await songsResponseResponse.json();
         setSongs(songsResponseData._embedded.songList); // Assuming songsResponseData is a Songs Response object
-
+  
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
         setIsLoading(false);
       }
     };
-
+  
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -73,6 +73,7 @@ export default function UserDetails({ userId }) {
       const res = await axios.put(url, null, config);
       if (JSON.stringify(res.status) == "200") {
         setSpotifySyncStatus("Success");
+        fetchData()
       } else {
         setSpotifySyncStatus("Fail");
       }
