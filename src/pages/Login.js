@@ -93,7 +93,7 @@ function Login({ userId, setUserId }) {
           </button>
           {userCreated && (
             <div className="mt-3">
-              <Link to="/userDetails">
+              <Link to="/concertList">
                 <button className="btn btn-primary">Get Started</button>
               </Link>
             </div>

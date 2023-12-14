@@ -14,6 +14,7 @@ import axios from "axios";
 
 function App() {
   const [userId, setUserId] = useState("");
+  const [concertId, setConcertId] = useState("");
 
   return (
     <BrowserRouter>
@@ -40,7 +41,7 @@ function App() {
           />
           <Route
             path="concertList"
-            element={<ConcertList page={10} size={5} />}
+            element={<ConcertList setConcertId={setConcertId} />}
           />
           <Route
             path="concertDetails"
