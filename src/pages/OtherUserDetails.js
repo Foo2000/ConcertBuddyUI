@@ -17,6 +17,7 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function OtherUserDetails({ userId }) {
   const [user, setUser] = useState(null);
@@ -92,6 +93,17 @@ export default function OtherUserDetails({ userId }) {
                   </MDBCardBody>
                 </MDBCard>
 
+                <MDBCard className="mb-4 mb-lg-0">
+                  <MDBCardBody className="p-0">
+                    <MDBListGroup flush className="rounded-3">
+                      <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
+                        <Link to="/userList">
+                          <button className="btn btn-primary" >Back To the List</button>
+                        </Link>
+                      </MDBListGroupItem>
+                    </MDBListGroup>
+                  </MDBCardBody>
+                </MDBCard>
               </MDBCol>
               <MDBCol lg="8">
                 <MDBCard className="mb-4">

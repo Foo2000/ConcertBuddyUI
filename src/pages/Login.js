@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Login({ userId, setUserId, setInApp }) {
   const [googleSSOUser, setGoogleSSOUser] = useState([]);
   const [googleSSOProfile, setGoogleSSOProfile] = useState(null);
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState("2000-01-01");
   const [userCreated, setUserCreated] = useState(false);
 
   const login = useGoogleLogin({
