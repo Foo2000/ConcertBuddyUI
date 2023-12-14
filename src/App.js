@@ -47,7 +47,7 @@ function App() {
             path="concertDetails"
             element={
               <ConcertDetails
-                concertId={"140ec861-33c0-48f8-bf8b-79e0e366599e"}
+                concertId={concertId}
                 userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"}
               />
             }

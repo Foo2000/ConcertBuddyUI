@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 const ConcertList = ({setConcertId}) => {
   const [concerts, setConcerts] = useState([]);
@@ -51,7 +52,9 @@ const ConcertList = ({setConcertId}) => {
           {concerts.map((concert, index) => (
             <MDBListGroupItem key={index}>
               {/* Render concert details here */}
-              <h5>{concert.name}</h5>
+              <Link to="/concertDetails" onClick={() => {setConcertId(concert.id)}}>
+                <h5>{concert.name}</h5>
+              </Link>
               <p>Artist: {concert.performingArtist}</p>
               {/* Add more details as needed */}
             </MDBListGroupItem>
