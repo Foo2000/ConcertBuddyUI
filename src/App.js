@@ -6,6 +6,7 @@ import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
 import Login from "./pages/Login";
 import UserDetails from "./pages/UserDetails";
+import OtherUserDetails from "./pages/OtherUserDetails";
 import UserList from "./pages/UserList";
 import ConcertDetails from "./pages/ConcertDetails";
 import ConcertList from "./pages/ConcertList";
@@ -34,6 +35,12 @@ function App() {
             path="userDetails"
             element={
               <UserDetails userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"} />
+            }
+          />
+          <Route
+            path="otherUserDetails"
+            element={
+              <OtherUserDetails userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"} />
             }
           />
           <Route
