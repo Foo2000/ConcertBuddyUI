@@ -48,7 +48,7 @@ export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
     try {
       setIsMatching(true)
       const url =
-        "http://localhost:8090/api/v1/finder/" + userId + "/" + concertId;
+        "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8013/api/v1/finder/" + userId + "/" + concertId;
 
       const res = await axios.post(url, null, null);
       if (JSON.stringify(res.status) == "200") {
