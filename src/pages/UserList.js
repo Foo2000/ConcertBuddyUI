@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
-const UserList = ({ userIds }) => {
+const UserList = ({ userIds, setOtherUserId }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -38,7 +39,9 @@ const UserList = ({ userIds }) => {
           {users.map((user, index) => (
             <MDBListGroupItem key={index}>
               {/* Render user details here */}
-              <h5>{user.name}</h5>
+              <Link to="/otherUserDetails" onClick={() => {setOtherUserId(user.id)}}>
+                <h5>{user.name}</h5>
+              </Link>
               <p>Age: {user.age}</p>
               {/* Add more details as needed */}
             </MDBListGroupItem>

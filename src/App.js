@@ -17,6 +17,7 @@ function App() {
   const [userId, setUserId] = useState("");
   const [concertId, setConcertId] = useState("");
   const [matchedUserIds, setMatchedUserIds] = useState([]);
+  const [otheruUserId, setOtherUserId] = useState("");
 
   return (
     <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
             element={
               <UserList
                 userIds={matchedUserIds}
+                setOtherUserId={setOtherUserId}
               />
             }
           />
@@ -40,7 +42,7 @@ function App() {
           <Route
             path="otherUserDetails"
             element={
-              <OtherUserDetails userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"} />
+              <OtherUserDetails userId={otheruUserId} />
             }
           />
           <Route
