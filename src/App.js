@@ -15,6 +15,7 @@ import axios from "axios";
 function App() {
   const [userId, setUserId] = useState("");
   const [concertId, setConcertId] = useState("");
+  const [matchedUserIds, setMatchedUserIds] = useState([]);
 
   return (
     <BrowserRouter>
@@ -25,11 +26,7 @@ function App() {
             path="userList"
             element={
               <UserList
-                userIds={[
-                  "2f549ace-7ce8-466e-b9c4-b973f2bb69bc",
-                  "d88ffc06-8905-4c8a-b8f0-2b7aa3f7396c",
-                  "0e21d65c-203a-4ba8-88f6-06cac7a0a2ca",
-                ]}
+                userIds={matchedUserIds}
               />
             }
           />
@@ -49,6 +46,7 @@ function App() {
               <ConcertDetails
                 concertId={concertId}
                 userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"}
+                setMatchedUserIds={setMatchedUserIds}
               />
             }
           />

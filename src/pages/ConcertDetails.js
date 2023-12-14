@@ -17,11 +17,14 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function ConcertDetails({concertId, userId}) {
+export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
   const [concert, setConcert] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMatching, setIsMatching] = useState(false);
   const [matchStatus, setMatchStatus] = useState("");
+  const [successfullyMatched, setSuccessfullyMatched] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,15 +46,19 @@ export default function ConcertDetails({concertId, userId}) {
 
   const handleMatch = async () => {
     try {
+      setIsMatching(true)
       const url =
         "http://localhost:8090/api/v1/finder/" + userId + "/" + concertId;
 
       const res = await axios.post(url, null, null);
       if (JSON.stringify(res.status) == "200") {
         setMatchStatus("Success");
+        setSuccessfullyMatched(true)
+        setMatchedUserIds(res.data.matchedUserId)
       } else {
         settMatchStatus("Fail");
       }
+      setIsMatching(false)
     } catch (error) {
       console.error("Error:", error);
       // Handle errors here
@@ -106,10 +113,16 @@ export default function ConcertDetails({concertId, userId}) {
                           >
                             Match
                           </button>
+                          {isMatching && (<p>Matching...</p>)}
                           {matchStatus && (
                             <div className="mt-3">
                               <strong>SpotifySync Status:</strong>
                               <pre>{matchStatus}</pre>
+                              {successfullyMatched && (
+                                <Link to="/userList">
+                                  <button className="btn btn-primary">View Matched Users</button>
+                                </Link>
+                              )}
                             </div>
                           )}
                         </div>
