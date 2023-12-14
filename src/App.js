@@ -18,11 +18,12 @@ function App() {
   const [concertId, setConcertId] = useState("");
   const [matchedUserIds, setMatchedUserIds] = useState([]);
   const [otheruUserId, setOtherUserId] = useState("");
+  const [inApp, setInApp] = useState(false);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout inApp={inApp}/>}>
           <Route index element={<Home />} />
           <Route
             path="userList"
@@ -36,7 +37,7 @@ function App() {
           <Route
             path="userDetails"
             element={
-              <UserDetails userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"} />
+              <UserDetails userId={userId} />
             }
           />
           <Route
@@ -59,7 +60,7 @@ function App() {
               />
             }
           />
-          <Route path="login" element={<Login userId={userId} setUserId={setUserId}/>} />
+          <Route path="login" element={<Login userId={userId} setUserId={setUserId} setInApp={setInApp}/>} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

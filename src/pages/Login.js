@@ -3,7 +3,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function Login({ userId, setUserId }) {
+function Login({ userId, setUserId, setInApp }) {
   const [googleSSOUser, setGoogleSSOUser] = useState([]);
   const [googleSSOProfile, setGoogleSSOProfile] = useState(null);
   const [birthday, setBirthday] = useState("");
@@ -93,8 +93,8 @@ function Login({ userId, setUserId }) {
           </button>
           {userCreated && (
             <div className="mt-3">
-              <Link to="/concertList">
-                <button className="btn btn-primary">Get Started</button>
+              <Link to="/userDetails">
+                <button className="btn btn-primary" onClick={() => {setInApp(true)}}>Get Started</button>
               </Link>
             </div>
           )}

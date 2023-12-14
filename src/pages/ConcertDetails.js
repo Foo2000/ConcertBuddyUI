@@ -72,19 +72,6 @@ export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
       ) : (
         <section style={{ backgroundColor: "#eee" }}>
           <MDBContainer className="py-5">
-            <MDBRow>
-              <MDBCol>
-                <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-                  <MDBBreadcrumbItem>
-                    <a href="#">Home</a>
-                  </MDBBreadcrumbItem>
-                  <MDBBreadcrumbItem>
-                    <a href="#">Concert</a>
-                  </MDBBreadcrumbItem>
-                  <MDBBreadcrumbItem active>Concert Details</MDBBreadcrumbItem>
-                </MDBBreadcrumb>
-              </MDBCol>
-            </MDBRow>
 
             <MDBRow>
               <MDBCol lg="4">
