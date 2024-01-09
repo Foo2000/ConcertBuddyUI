@@ -19,7 +19,7 @@ import {
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
+export default function ConcertDetails({concertId, userId, setMatchedUserIds, resourceUrl}) {
   const [concert, setConcert] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isMatching, setIsMatching] = useState(false);
@@ -30,7 +30,7 @@ export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
     const fetchData = async () => {
       try {
         const concertResponse = await fetch(
-          "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts/" + concertId
+          resourceUrl + ":8014/api/v1/concerts/" + concertId
         );
         const concertData = await concertResponse.json();
         setConcert(concertData); // Assuming concertData is a Concert object
@@ -48,7 +48,7 @@ export default function ConcertDetails({concertId, userId, setMatchedUserIds}) {
     try {
       setIsMatching(true)
       const url =
-        "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8013/api/v1/finder/" + userId + "/" + concertId;
+        resourceUrl + ":8013/api/v1/finder/" + userId + "/" + concertId;
 
       const res = await axios.post(url, null, null);
       if (JSON.stringify(res.status) == "200") {

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
-const UserList = ({ userIds, setOtherUserId }) => {
+const UserList = ({ userIds, setOtherUserId, resourceUrl }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userUrl =
-    "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
+  const userUrl = resourceUrl + ":8012";
 
   useEffect(() => {
     const fetchData = async () => {

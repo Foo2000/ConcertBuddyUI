@@ -18,15 +18,14 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 
-export default function UserDetails({ userId }) {
+export default function UserDetails({ userId, resourceUrl }) {
   const [user, setUser] = useState(null);
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [spotifytoken, setSpotifyToken] = useState("");
   const [spotifySyncStatus, setSpotifySyncStatus] = useState("");
 
-  const userUrl =
-    "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
+  const userUrl = resourceUrl + ":8012";
 
     const fetchData = async () => {
       try {

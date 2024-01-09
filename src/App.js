@@ -20,6 +20,8 @@ function App() {
   const [otheruUserId, setOtherUserId] = useState("");
   const [inApp, setInApp] = useState(false);
 
+  const resourceUrl = "http://localhost"
+
   return (
     <BrowserRouter>
       <Routes>
@@ -31,24 +33,25 @@ function App() {
               <UserList
                 userIds={matchedUserIds}
                 setOtherUserId={setOtherUserId}
+                resourceUrl={resourceUrl}
               />
             }
           />
           <Route
             path="userDetails"
             element={
-              <UserDetails userId={userId} />
+              <UserDetails userId={userId} resourceUrl={resourceUrl} />
             }
           />
           <Route
             path="otherUserDetails"
             element={
-              <OtherUserDetails userId={otheruUserId} />
+              <OtherUserDetails userId={otheruUserId} resourceUrl={resourceUrl} />
             }
           />
           <Route
             path="concertList"
-            element={<ConcertList setConcertId={setConcertId} />}
+            element={<ConcertList setConcertId={setConcertId} resourceUrl={resourceUrl} />}
           />
           <Route
             path="concertDetails"
@@ -57,10 +60,11 @@ function App() {
                 concertId={concertId}
                 userId={"2f549ace-7ce8-466e-b9c4-b973f2bb69bc"}
                 setMatchedUserIds={setMatchedUserIds}
+                resourceUrl={resourceUrl}
               />
             }
           />
-          <Route path="login" element={<Login userId={userId} setUserId={setUserId} setInApp={setInApp}/>} />
+          <Route path="login" element={<Login userId={userId} setUserId={setUserId} setInApp={setInApp} resourceUrl={resourceUrl}/>} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

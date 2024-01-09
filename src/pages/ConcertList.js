@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
-const ConcertList = ({setConcertId}) => {
+const ConcertList = ({setConcertId, resourceUrl}) => {
   const [concerts, setConcerts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -12,7 +12,7 @@ const ConcertList = ({setConcertId}) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://concertbuddyconcert.uc.r.appspot.com/api/v1/concerts?page=" + page + "&size=" + size
+        resourceUrl + ":8014/api/v1/concerts?page=" + page + "&size=" + size
       );
       const data = await response.json();
       setConcerts(data); // Assuming data is an array of concert objects

@@ -19,13 +19,12 @@ import {
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function OtherUserDetails({ userId }) {
+export default function OtherUserDetails({ userId, resourceUrl }) {
   const [user, setUser] = useState(null);
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userUrl =
-    "http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012";
+  const userUrl = resourceUrl + ":8012";
 
   useEffect(() => {
     const fetchData = async () => {

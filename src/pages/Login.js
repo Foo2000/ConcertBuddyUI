@@ -3,7 +3,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function Login({ userId, setUserId, setInApp }) {
+function Login({ userId, setUserId, setInApp, resourceUrl }) {
   const [googleSSOUser, setGoogleSSOUser] = useState([]);
   const [googleSSOProfile, setGoogleSSOProfile] = useState(null);
   const [birthday, setBirthday] = useState("2000-01-01");
@@ -50,7 +50,7 @@ function Login({ userId, setUserId, setInApp }) {
     console.log(a)
     axios
       .put(
-        `http://ec2-18-224-179-229.us-east-2.compute.amazonaws.com:8012/api/v1/users`,
+        resourceUrl + ":8012/api/v1/users",
         {
           name: googleSSOProfile.name,
           dateOfBirth: birthday,
